@@ -1,16 +1,23 @@
 import React, { useContext, useState } from 'react';
 import { Button, Container, TextField, Box } from "@mui/material";
 import { AuthContext } from "../../context/AuthContext";
+import {DateField, DesktopDatePicker, LocalizationProvider} from '@mui/x-date-pickers';
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 const RegisterPage = ({ setActiveComponent }) => {
     const { register } = useContext(AuthContext);
-    const [username, setUsername] = useState('');
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [surname, setSurname] = useState('');
+    const [email, setEmail] = useState('');
+    const [dateOfBirth, setDateOfBirth] = useState(null);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await register(username, password);
-        setActiveComponent("vehicleTable");
+        const res = await register(username, password, firstName, lastName, surname, dateOfBirth, email);
+        if (res != null) setActiveComponent("main");
     };
 
     return (
@@ -38,6 +45,58 @@ const RegisterPage = ({ setActiveComponent }) => {
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        fullWidth
+                        margin="normal"
+                        required
+                    />
+                    <TextField
+                        label="First name"
+                        type="text"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        fullWidth
+                        margin="normal"
+                        required
+                        />
+                    <TextField
+                        label="Surname"
+                        type="text"
+                        value={surname}
+                        onChange={(e) => setSurname(e.target.value)}
+                        fullWidth
+                        margin="normal"
+                        required
+                    />
+                    <TextField
+                        label="Last name"
+                        type="text"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        fullWidth
+                        margin="normal"
+                        required
+                    />
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <DesktopDatePicker
+                            sx={{ width: '100%', marginTop: 2, marginBottom: 1 }}
+                            label="Date of birth"
+                            inputFormat="MM/dd/yyyy"
+                            value={dateOfBirth}
+                            slotProps={{
+                                textField: {
+                                    required: true,
+                                },
+                            }}
+                            onChange={(newValue) => setDateOfBirth(newValue)}
+                            renderInput={(params) => <TextField {...params} fullWidth margin="normal" required />}
+                        />
+                    </LocalizationProvider>
+
+                    <TextField
+                        label="Email"
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         fullWidth
                         margin="normal"
                         required

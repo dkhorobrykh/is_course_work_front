@@ -41,34 +41,40 @@ const Header = ({onLoginOpen, onRegisterOpen, user, logout, setActiveComponent})
         handleMenuClose();
     }
 
+    const handleFlightsClick = () => {
+        setActiveComponent("flights");
+        handleMenuClose();
+    }
+
+    const handleMainClick = () => {
+        setActiveComponent("main");
+        handleMenuClose();
+    }
+
     return (
         <>
-            <AppBar position="static">
+            <AppBar position="static" style={{zIndex: 10}}>
                 <Toolbar>
                     <Button color="inherit" onClick={handleMenuOpen}><MenuOpenIcon/></Button>
                     <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
-                        <MenuItem onClick={handleVehicleTableClick}>Vehicles table</MenuItem>
-                        <MenuItem onClick={handleVehicleMapClick}>Vehicles map</MenuItem>
-                        <MenuItem onClick={handleVehicleQueriesClick}>Vehicle queries</MenuItem>
+                        <MenuItem onClick={handleMainClick}>Main page</MenuItem>
+                        <MenuItem onClick={handleFlightsClick}>Flights</MenuItem>
                         { user && (
                             <MenuItem onClick={handleVehicleImportClick}>Import vehicles</MenuItem>
                         )}
                         {user && user.admin && (
                             <MenuItem onClick={handleAdminRequestsClick}>Admin requests table</MenuItem>
                         )}
-                        {user && user.admin && (
-                            <MenuItem onClick={handleAuditDataClick}>Audit Data</MenuItem>
-                        )}
                     </Menu>
 
                     <Typography variant="h6" sx={{flexGrow: 1}}>
-                        IS   |   "Intergalactic transportation"   |   Course project
+                        IS   |   🪐 Intergalactic transportation 🪐   |   Course project
                     </Typography>
 
                     {user ? (
                         <>
                             <Typography variant="body1" sx={{mr: 2}}>
-                                Hello, {user.username}!
+                                Hello, {user.surname} {user.firstName} {user.lastName}!
                             </Typography>
                             <Button color="inherit" onClick={logout}><LogoutIcon/></Button>
                         </>

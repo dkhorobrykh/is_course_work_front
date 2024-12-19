@@ -89,12 +89,18 @@ export const AuthProvider = ({children}) => {
         try {
             const response = await axios.post(`${BASE_API_URL}/authorization/register`, {login: username, password: password, firstName, lastName, surname, dateOfBirth, email});
             setSuccess({message: `User registered: ${firstName} ${lastName}. Please log in.`});
+            return response;
         } catch (error) {
-            setError(error.response.data);
+            const errorName = error.response.data['error'];
+
+            if (errorName === "VALIDATION_EXCEPTION")
+                setError({message: error.response.data['details']});
+            else
+                setError(error.response.data);
             console.error('Ошибка при регистрации:', error);
         }
 
-        return false;
+        return null;
     };
 
     const logout = () => {

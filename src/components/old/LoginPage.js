@@ -11,7 +11,7 @@ const LoginPage = ({ setActiveComponent }) => {
         e.preventDefault();
         const result = await login(username, password);
         if (result) {
-            setActiveComponent('flights');
+            setActiveComponent('main');
         }
     };
 
