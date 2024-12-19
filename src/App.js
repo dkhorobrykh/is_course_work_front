@@ -1,18 +1,20 @@
 import './App.css';
-import VehicleTable from "./components/VehicleTable";
+import VehicleTable from "./components/old/VehicleTable";
 import {useCallback, useContext, useEffect, useState} from "react";
 import {getEntities} from "./api/api";
 import {AuthContext} from "./context/AuthContext";
-import LoginPage from "./components/LoginPage";
-import RegisterPage from "./components/RegisterPage";
+import LoginPage from "./components/old/LoginPage";
+import RegisterPage from "./components/old/RegisterPage";
 import Header from "./components/Header";
-import VehicleMap from "./components/VehicleMap";
-import AdminRequestsTable from "./components/AdminRequestsTable";
+import VehicleMap from "./components/old/VehicleMap";
+import AdminRequestsTable from "./components/old/AdminRequestsTable";
 import {ErrorContext} from "./context/ErrorContext";
 import {setupInterceptors} from "./api/UseAxiosErrorInterceptor";
-import VehicleQueryTable from "./components/queries/VehicleQueryTable";
-import AuditDataTable from "./components/AuditDataTable";
-import VehicleImportTable from "./components/VehicleImportTable";
+import VehicleQueryTable from "./components/old/queries/VehicleQueryTable";
+import AuditDataTable from "./components/old/AuditDataTable";
+import VehicleImportTable from "./components/old/VehicleImportTable";
+import FlightsPage from "./components/FlightsPage";
+import MainPage from "./components/MainPage";
 
 function App() {
     const {setError, setSuccess} = useContext(ErrorContext);
@@ -21,50 +23,8 @@ function App() {
         setupInterceptors(setError);
     }, [setError]);
 
-    const [vehicles, setVehicles] = useState([]);
-    const [activeComponent, setActiveComponent] = useState("vehicleTable");
+    const [activeComponent, setActiveComponent] = useState("main");
     const {user, logout} = useContext(AuthContext);
-    const [filters, setFilters] = useState({
-        name: "",
-        fuelType: "",
-        vehicleType: "",
-        sortBy: "id",
-        ascending: true,
-        page: 0,
-        size: 10,
-    });
-
-    const [defaultFilters] = useState({
-        name: "",
-        fuelType: "",
-        vehicleType: "",
-        sortBy: "id",
-        ascending: true,
-        page: 0,
-        size: 10,
-    })
-
-    const fetchVehicles = useCallback(async () => {
-        const data = await getEntities(filters, setFilters, setError, () => {
-        });
-        setVehicles(data);
-    }, [filters, setError]);
-
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            fetchVehicles();
-        }, 5000);
-
-        return () => clearInterval(intervalId);
-    }, [fetchVehicles]);
-
-    useEffect(() => {
-        setFilters(defaultFilters);
-    }, [activeComponent, defaultFilters]);
-
-    const handleVehicleAdded = () => {
-        fetchVehicles();
-    };
 
     return (
         <div className="App">
@@ -86,28 +46,9 @@ function App() {
 
                 {activeComponent === "registerPage" && <RegisterPage setActiveComponent={setActiveComponent}/>}
 
-                {activeComponent === "vehicleTable" && (
-                    <>
-                        <h1>Vehicle List</h1>
-                        <VehicleTable entities={vehicles} setEntities={setVehicles} user={user} filters={filters}
-                                      setFilters={setFilters} onlyRead={false} onVehicleAdded={handleVehicleAdded}/>
-                    </>
-                )}
+                {activeComponent === "flights" && <FlightsPage setActiveComponent={setActiveComponent}/>}
 
-                {activeComponent === "vehicleMap" && (
-                    <>
-                        <h1>Vehicle Map</h1>
-                        <VehicleMap vehicles={vehicles} setVehicles={setVehicles} setFilters={setFilters} filters={filters}/>
-                    </>
-                )}
-
-                {activeComponent === "vehicleQueries" && <VehicleQueryTable filters={filters} setFilters={setFilters}/>}
-
-                {activeComponent === "vehicleImport" && user && <VehicleImportTable setError={setError} setSuccess={setSuccess} />}
-
-                {activeComponent === "adminRequests" && user && user.admin && <AdminRequestsTable/>}
-
-                {activeComponent === "auditData" && user && user.admin && <AuditDataTable/>}
+                {activeComponent === "main" && <MainPage setActiveComponent={setActiveComponent}/>}
             </div>
         </div>
     );

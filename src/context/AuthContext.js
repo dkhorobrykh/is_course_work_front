@@ -13,7 +13,7 @@ export const AuthProvider = ({children}) => {
 
     const fetchUserInfo = useCallback(async ({needToLogging}) => {
         try {
-            const response = await axios.get(`${BASE_API_URL}/user/info`);
+            const response = await axios.get(`${BASE_API_URL}/user`);
             setUser(response.data);
             if (needToLogging) setSuccess({message: "User data has been successfully received"});
 
@@ -62,8 +62,8 @@ export const AuthProvider = ({children}) => {
 
     const login = async (username, password) => {
         try {
-            const response = await axios.post(`${BASE_API_URL}/auth/login`, {username, password});
-            const {token} = response.data;
+            const response = await axios.post(`${BASE_API_URL}/authorization/confirm`, {login: username, password: password});
+            const token = response.data['accessToken'];
 
             if (token) {
                 setToken(token);
@@ -85,23 +85,10 @@ export const AuthProvider = ({children}) => {
         return false;
     };
 
-    const register = async (username, password) => {
+    const register = async (username, password, firstName, lastName, surname, dateOfBirth, email) => {
         try {
-            const response = await axios.post(`${BASE_API_URL}/auth/register`, {username, password});
-            const {token} = response.data;
-
-            if (token) {
-                setToken(token);
-                localStorage.setItem('jwtToken', token);
-                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-
-                setSuccess({message: "Registration is successful!"});
-
-                return true;
-            } else {
-                setError({message: "Server error. Please, try again later."});
-                console.error("Во время регистрации с бэка пришел пустой jwt-токен");
-            }
+            const response = await axios.post(`${BASE_API_URL}/authorization/register`, {login: username, password: password, firstName, lastName, surname, dateOfBirth, email});
+            setSuccess({message: `User registered: ${firstName} ${lastName}. Please log in.`});
         } catch (error) {
             setError(error.response.data);
             console.error('Ошибка при регистрации:', error);
