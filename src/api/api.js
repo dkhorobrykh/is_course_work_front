@@ -2,6 +2,19 @@ import api from './UseAxiosErrorInterceptor';
 import {BASE_API_URL} from "../config/config";
 import {Vehicle} from "../models/Vehicle";
 
+export const getAllFlights = async (setError, setSuccess) => {
+    try {
+        const response = await api.get(BASE_API_URL + "/flight")
+        setSuccess({message: "Flights successfully received"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error fetching flights data", error);
+    }
+}
+
+// -----------------------------------------------------------------------------
+
 export const getImportHistory = async (setError, setSuccess) => {
     try {
         const response = await api.get(BASE_API_URL + "/import");

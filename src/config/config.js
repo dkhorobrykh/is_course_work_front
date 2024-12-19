@@ -1,1 +1,1 @@
-export const BASE_API_URL = "http://localhost:8080/lab1-1.0-SNAPSHOT/api"
+export const BASE_API_URL = "http://localhost:8081/api"

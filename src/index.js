@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import {AuthProvider} from "./context/AuthContext";
 import {ErrorProvider} from "./context/ErrorContext";
-import ErrorBoundary from "./components/ErrorBoundary";
+import ErrorBoundary from "./components/old/ErrorBoundary";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

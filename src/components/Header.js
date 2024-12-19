@@ -2,7 +2,7 @@ import {useState} from "react";
 import {AppBar, Button, Menu, MenuItem, Toolbar, Typography} from "@mui/material";
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import LogoutIcon from '@mui/icons-material/Logout';
-import MakeAdminRequestButton from "./MakeAdminRequestButton";
+import MakeAdminRequestButton from "./old/MakeAdminRequestButton";
 import {makeAdminRequest} from "../api/api";
 
 const Header = ({onLoginOpen, onRegisterOpen, user, logout, setActiveComponent}) => {
@@ -62,7 +62,7 @@ const Header = ({onLoginOpen, onRegisterOpen, user, logout, setActiveComponent})
                     </Menu>
 
                     <Typography variant="h6" sx={{flexGrow: 1}}>
-                        IS   |   Lab #3   |   Khorobrykh Daniil, P3316
+                        IS   |   "Intergalactic transportation"   |   Course project
                     </Typography>
 
                     {user ? (
@@ -77,10 +77,6 @@ const Header = ({onLoginOpen, onRegisterOpen, user, logout, setActiveComponent})
                             <Button color="inherit" onClick={onLoginOpen}>Login</Button>
                             <Button color="inherit" onClick={onRegisterOpen}>Register</Button>
                         </>
-                    )}
-
-                    {user && !user.admin && (
-                        <MakeAdminRequestButton userId={user.id} makeAdminRequest={makeAdminRequest}/>
                     )}
                 </Toolbar>
             </AppBar>
