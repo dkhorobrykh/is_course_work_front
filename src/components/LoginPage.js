@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Button, Container, TextField, Box } from "@mui/material";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../context/AuthContext";
 
 const LoginPage = ({ setActiveComponent }) => {
     const { login } = useContext(AuthContext);

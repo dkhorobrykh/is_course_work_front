@@ -13,6 +13,50 @@ export const getAllFlights = async (setError, setSuccess) => {
     }
 }
 
+export const getAllSchedules = async (setError, setSuccess) => {
+    try {
+        const response = await api.get(BASE_API_URL + "/admin/schedules")
+        setSuccess({message: "Schedules successfully received"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error fetching schedules data", error);
+    }
+}
+
+export const getPlanetList = async (setError, setSuccess) => {
+    try {
+        const response = await api.get(BASE_API_URL + "/planet/all")
+        setSuccess({message: "Flights successfully received"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error fetching flights data", error);
+    }
+}
+
+export const updateSchedule = async (scheduleId, scheduleData, setError, setSuccess) => {
+    try {
+        const response = await api.put(BASE_API_URL + `/admin/schedules/${scheduleId}`, scheduleData);
+        setSuccess({message: "Schedule successfully updated"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error creating schedule", error);
+    }
+}
+
+export const addSchedule = async (scheduleData, setError, setSuccess) => {
+    try {
+        const response = await api.post(BASE_API_URL + "/admin/schedules", scheduleData);
+        setSuccess({message: "Schedule successfully created"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error creating schedule", error);
+    }
+}
+
 // -----------------------------------------------------------------------------
 
 export const getImportHistory = async (setError, setSuccess) => {
