@@ -51,7 +51,6 @@ const SchedulePage = (callback, deps) => {
                                 <TableCell key="departureDatetime">Departure datetime</TableCell>
                                 <TableCell key="arrivalPlanet">Arrival planet</TableCell>
                                 <TableCell key="arrivalDatetime">Arrival datetime</TableCell>
-                                <TableCell key="status">Status</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -59,11 +58,10 @@ const SchedulePage = (callback, deps) => {
                                 <TableRow key={entity.id}>
                                     <TableCell key="id">{entity.id}</TableCell>
                                     <TableCell key="flight">{entity.flight?.name}</TableCell>
-                                    <TableCell key="departurePlanet">{entity.departurePlanet.name}</TableCell>
+                                    <TableCell key="departurePlanet">{entity.planetDeparture.name}</TableCell>
                                     <TableCell key="departureDatetime">{entity.departureDatetime}</TableCell>
-                                    <TableCell key="arrivalPlanet">{entity.arrivalPlanet.name}</TableCell>
+                                    <TableCell key="arrivalPlanet">{entity.planetArrival.name}</TableCell>
                                     <TableCell key="arrivalDatetime">{entity.arrivalDatetime}</TableCell>
-                                    <TableCell key="status">{entity.status}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
