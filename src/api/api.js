@@ -13,6 +13,127 @@ export const getAllFlights = async (setError, setSuccess) => {
     }
 }
 
+export const getAllSchedules = async (setError, setSuccess) => {
+    try {
+        const response = await api.get(BASE_API_URL + "/admin/schedules")
+        setSuccess({message: "Schedules successfully received"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error fetching schedules data", error);
+    }
+}
+
+export const getPlanetList = async (setError, setSuccess) => {
+    try {
+        const response = await api.get(BASE_API_URL + "/planet/all")
+        setSuccess({message: "Flights successfully received"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error fetching flights data", error);
+    }
+}
+
+export const getAllShips = async (setError, setSuccess) => {
+    try {
+        const response = await api.get(BASE_API_URL + "/ships");
+        setSuccess({message: "Ships successfully received"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error fetching ships data", error);
+    }
+}
+
+export const updateSchedule = async (scheduleId, scheduleData, setError, setSuccess) => {
+    try {
+        const response = await api.put(BASE_API_URL + `/admin/schedules/${scheduleId}`, scheduleData);
+        setSuccess({message: "Schedule successfully updated"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error creating schedule", error);
+    }
+}
+
+export const addSchedule = async (scheduleData, setError, setSuccess) => {
+    try {
+        const response = await api.post(BASE_API_URL + "/admin/schedules", scheduleData);
+        setSuccess({message: "Schedule successfully created"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error creating schedule", error);
+    }
+}
+
+export const updateShip = async (shipId, shipData, setError, setSuccess) => {
+    try {
+        const response = await api.put(BASE_API_URL + `/ships/${shipId}`, shipData);
+        setSuccess({message: "Ship successfully updated"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error updating ship", error);
+    }
+}
+
+export const addShip = async (shipData, setError, setSuccess) => {
+    try {
+        const response = await api.post(BASE_API_URL + "/ships/add", shipData);
+        setSuccess({message: "Ship successfully created"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error creating ship", error);
+    }
+}
+
+export const getHabitatList = async (setError, setSuccess) => {
+    try {
+        const response = await api.get(BASE_API_URL + "/habitat");
+        setSuccess({message: "Habitat list successfully received"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error getHabitatList", error);
+    }
+}
+
+export const getTemperatureTypeList = async (setError, setSuccess) => {
+    try {
+        const response = await api.get(BASE_API_URL + "/temperature");
+        setSuccess({message: "Temperature successfully received"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error getTemperatureTypeList", error);
+    }
+}
+
+export const getAirTypeList = async (setError, setSuccess) => {
+    try {
+        const response = await api.get(BASE_API_URL + "/air");
+        setSuccess({message: "Air successfully received"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error getAirTypeList", error);
+    }
+}
+
+export const assignFlight = async (scheduleId, flightData, setError, setSuccess) => {
+    try {
+        const response = await api.post(BASE_API_URL + `/admin/schedules/${scheduleId}/assignFlight`, flightData);
+        setSuccess({message: "Flight successfully assigned"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error assignFlight", error);
+    }
+}
+
 // -----------------------------------------------------------------------------
 
 export const getImportHistory = async (setError, setSuccess) => {

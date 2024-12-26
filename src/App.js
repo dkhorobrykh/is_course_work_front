@@ -3,8 +3,8 @@ import VehicleTable from "./components/old/VehicleTable";
 import {useCallback, useContext, useEffect, useState} from "react";
 import {getEntities} from "./api/api";
 import {AuthContext} from "./context/AuthContext";
-import LoginPage from "./components/old/LoginPage";
-import RegisterPage from "./components/old/RegisterPage";
+import LoginPage from "./components/pages/LoginPage";
+import RegisterPage from "./components/pages/RegisterPage";
 import Header from "./components/Header";
 import VehicleMap from "./components/old/VehicleMap";
 import AdminRequestsTable from "./components/old/AdminRequestsTable";
@@ -13,8 +13,10 @@ import {setupInterceptors} from "./api/UseAxiosErrorInterceptor";
 import VehicleQueryTable from "./components/old/queries/VehicleQueryTable";
 import AuditDataTable from "./components/old/AuditDataTable";
 import VehicleImportTable from "./components/old/VehicleImportTable";
-import FlightsPage from "./components/FlightsPage";
-import MainPage from "./components/MainPage";
+import FlightsPage from "./components/pages/FlightsPage";
+import MainPage from "./components/pages/MainPage";
+import SchedulePage from "./components/pages/SchedulePage";
+import ShipPage from "./components/pages/ShipPage";
 
 function App() {
     const {setError, setSuccess} = useContext(ErrorContext);
@@ -49,6 +51,10 @@ function App() {
                 {activeComponent === "flights" && <FlightsPage setActiveComponent={setActiveComponent}/>}
 
                 {activeComponent === "main" && <MainPage setActiveComponent={setActiveComponent}/>}
+
+                {activeComponent === "schedules" && <SchedulePage setActiveComponent={setActiveComponent}/>}
+
+                {activeComponent === "ships" && <ShipPage setActiveComponent={setActiveComponent}/>}
             </div>
         </div>
     );
