@@ -56,6 +56,11 @@ const Header = ({onLoginOpen, onRegisterOpen, user, logout, setActiveComponent})
         handleMenuClose();
     }
 
+    const handleShipsClick = () => {
+        setActiveComponent("ships");
+        handleMenuClose();
+    }
+
     return (
         <>
             <AppBar position="static" style={{zIndex: 10}}>
@@ -65,6 +70,7 @@ const Header = ({onLoginOpen, onRegisterOpen, user, logout, setActiveComponent})
                         <MenuItem onClick={handleMainClick}>Main page</MenuItem>
                         <MenuItem onClick={handleFlightsClick}>Flights</MenuItem>
                         <MenuItem onClick={handleSchedulesClick}>Schedules</MenuItem>
+                        <MenuItem onClick={handleShipsClick}>Ships</MenuItem>
 
                         {/* -------------------------------------------------------------------- */}
 

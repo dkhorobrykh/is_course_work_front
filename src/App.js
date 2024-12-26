@@ -16,6 +16,7 @@ import VehicleImportTable from "./components/old/VehicleImportTable";
 import FlightsPage from "./components/FlightsPage";
 import MainPage from "./components/MainPage";
 import SchedulePage from "./components/SchedulePage";
+import ShipPage from "./components/ShipPage";
 
 function App() {
     const {setError, setSuccess} = useContext(ErrorContext);
@@ -52,6 +53,8 @@ function App() {
                 {activeComponent === "main" && <MainPage setActiveComponent={setActiveComponent}/>}
 
                 {activeComponent === "schedules" && <SchedulePage setActiveComponent={setActiveComponent}/>}
+
+                {activeComponent === "ships" && <ShipPage setActiveComponent={setActiveComponent}/>}
             </div>
         </div>
     );
