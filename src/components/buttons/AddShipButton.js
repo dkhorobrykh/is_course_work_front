@@ -1,8 +1,8 @@
 import React, {useContext} from 'react';
-import {ErrorContext} from "../context/ErrorContext";
+import {ErrorContext} from "../../context/ErrorContext";
 import {Box, Button, Tooltip} from "@mui/material";
-import CreateScheduleForm from "./CreateScheduleForm";
-import CreateShipForm from "./CreateShipForm";
+import CreateScheduleForm from "../forms/CreateScheduleForm";
+import CreateShipForm from "../forms/CreateShipForm";
 
 const AddShipButton = ({user, onShipAdding}) => {
     const [openCreateForm, setOpenCreateForm] = React.useState(false);

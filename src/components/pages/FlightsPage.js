@@ -1,6 +1,6 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import {ErrorContext} from "../context/ErrorContext";
-import {getAllFlights} from "../api/api";
+import {ErrorContext} from "../../context/ErrorContext";
+import {getAllFlights} from "../../api/api";
 import {
     CircularProgress, IconButton,
     Paper,

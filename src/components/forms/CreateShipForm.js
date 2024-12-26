@@ -7,7 +7,7 @@ import {
     getPlanetList, getTemperatureTypeList,
     updateSchedule,
     updateShip
-} from "../api/api";
+} from "../../api/api";
 import {
     Box,
     Button, IconButton,

@@ -1,10 +1,10 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import {ErrorContext} from "../context/ErrorContext";
-import {AuthContext} from "../context/AuthContext";
-import {getAllShips} from "../api/api";
+import {ErrorContext} from "../../context/ErrorContext";
+import {AuthContext} from "../../context/AuthContext";
+import {getAllShips} from "../../api/api";
 import {CircularProgress, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
-import AddScheduleButton from "./AddScheduleButton";
-import AddShipButton from "./AddShipButton";
+import AddScheduleButton from "../buttons/AddScheduleButton";
+import AddShipButton from "../buttons/AddShipButton";
 
 const ShipPage = () => {
     const [loading, setLoading] = useState(true);

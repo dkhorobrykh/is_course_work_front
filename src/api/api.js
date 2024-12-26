@@ -123,6 +123,17 @@ export const getAirTypeList = async (setError, setSuccess) => {
     }
 }
 
+export const assignFlight = async (scheduleId, flightData, setError, setSuccess) => {
+    try {
+        const response = await api.post(BASE_API_URL + `/admin/schedules/${scheduleId}/assignFlight`, flightData);
+        setSuccess({message: "Flight successfully assigned"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error assignFlight", error);
+    }
+}
+
 // -----------------------------------------------------------------------------
 
 export const getImportHistory = async (setError, setSuccess) => {

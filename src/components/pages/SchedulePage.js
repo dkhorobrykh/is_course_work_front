@@ -1,9 +1,10 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {CircularProgress, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
-import {getAllSchedules} from "../api/api";
-import {ErrorContext} from "../context/ErrorContext";
-import AddScheduleButton from "./AddScheduleButton";
-import {AuthContext} from "../context/AuthContext";
+import {getAllSchedules} from "../../api/api";
+import {ErrorContext} from "../../context/ErrorContext";
+import AddScheduleButton from "../buttons/AddScheduleButton";
+import {AuthContext} from "../../context/AuthContext";
+import AssignFlightForm from "../forms/AssignFlightForm";
 
 const SchedulePage = (callback, deps) => {
     const [loading, setLoading] = useState(true);
@@ -57,7 +58,15 @@ const SchedulePage = (callback, deps) => {
                             {entities.map((entity) => (
                                 <TableRow key={entity.id}>
                                     <TableCell key="id">{entity.id}</TableCell>
-                                    <TableCell key="flight">{entity.flight?.name}</TableCell>
+                                    <TableCell key="flight">
+                                        {entity.flight == null ? (
+                                            <AssignFlightForm scheduleId={entity.id} setError={setError} setSuccess={setSuccess} onClose={() => {}}/>
+                                        ) : (
+                                            <>
+                                                {entity.flight.name}
+                                            </>
+                                        )}
+                                    </TableCell>
                                     <TableCell key="departurePlanet">{entity.planetDeparture.name}</TableCell>
                                     <TableCell key="departureDatetime">{entity.departureDatetime}</TableCell>
                                     <TableCell key="arrivalPlanet">{entity.planetArrival.name}</TableCell>

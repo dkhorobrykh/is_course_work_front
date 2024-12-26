@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {Box, Button, Checkbox, FormControlLabel, MenuItem, Modal, TextField} from "@mui/material";
 import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 import {DesktopDatePicker, DesktopDateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
-import {addSchedule, getPlanetList, updateSchedule} from "../api/api";
+import {addSchedule, getPlanetList, updateSchedule} from "../../api/api";
 
 const style = {
     position: 'absolute',
