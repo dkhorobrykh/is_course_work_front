@@ -265,6 +265,28 @@ export const getUserDocTypes = async (setError, setSuccess) => {
     }
 }
 
+export const addRole = async (roleData, setError, setSuccess) => {
+    try {
+        const response = await api.post(`${BASE_API_URL}/admin/role`, roleData);
+        setSuccess({message: "User role successfully added"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error adding role", error);
+    }
+}
+
+export const getAllRoles = async (setError, setSuccess) => {
+    try {
+        const response = await api.get(`${BASE_API_URL}/admin/role`);
+        setSuccess({message: "Roles successfully received"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error getAllRoles ", error);
+    }
+}
+
 // -----------------------------------------------------------------------------
 
 export const getImportHistory = async (setError, setSuccess) => {

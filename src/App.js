@@ -14,6 +14,8 @@ import CargoPage from "./components/CargoPage";
 import ChatPage from "./components/pages/ChatPage";
 import ManageFlightsPage from "./components/pages/ManageFlightsPage";
 import UserDocPage from "./components/pages/UserDocPage";
+import RoleListPage from "./components/pages/RoleListPage";
+import AnalysisPage from "./components/pages/AnalysisPage";
 
 function App() {
     const {setError, setSuccess} = useContext(ErrorContext);
@@ -60,6 +62,10 @@ function App() {
                 {activeComponent === "manageFlights" && <ManageFlightsPage setActiveComponent={setActiveComponent}/>}
 
                 {activeComponent === "userDocs" && <UserDocPage setActiveComponent={setActiveComponent}/>}
+
+                {activeComponent === "rolePage" && <RoleListPage setActiveComponent={setActiveComponent}/>}
+
+                {activeComponent === "analysisPage" && <AnalysisPage setActiveComponent={setActiveComponent}/>}
             </div>
         </div>
     );
