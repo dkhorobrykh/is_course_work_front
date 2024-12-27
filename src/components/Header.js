@@ -66,6 +66,12 @@ const Header = ({onLoginOpen, onRegisterOpen, user, logout, setActiveComponent})
         handleMenuClose();
     };
 
+    const handleChatClick = () => {
+        setActiveComponent("chatPage");
+        handleMenuClose();
+    };
+
+
     return (
         <>
             <AppBar position="static" style={{zIndex: 10}}>
@@ -77,6 +83,7 @@ const Header = ({onLoginOpen, onRegisterOpen, user, logout, setActiveComponent})
                         <MenuItem onClick={handleSchedulesClick}>Schedules</MenuItem>
                         <MenuItem onClick={handleShipsClick}>Ships</MenuItem>
                         <MenuItem onClick={handleCargoClick}>Cargo</MenuItem>
+                        <MenuItem onClick={handleChatClick}>Chat</MenuItem>
 
                         { user && (
                             <MenuItem onClick={handleVehicleImportClick}>Import vehicles</MenuItem>
