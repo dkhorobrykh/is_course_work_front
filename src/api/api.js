@@ -105,6 +105,64 @@ export const addVehicle = async (addedEntity, setError, setSuccess) => {
     }
 }
 
+export const getAllCargo = async (setError, setSuccess) => {
+    try {
+        const response = await api.get(`${BASE_API_URL}/cargo`);
+        setSuccess({message: "Cargo successfully received."});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error fetching cargo data:", error);
+    }
+};
+
+
+export const addCargo = async (cargoData, setError, setSuccess) => {
+    try {
+        const response = await api.post(`${BASE_API_URL}/cargo`, cargoData);
+        if (setSuccess) setSuccess({message: "Cargo successfully added."});
+        return response.data;
+    } catch (error) {
+        if (setError) setError(error.response?.data || "Error adding cargo");
+        console.error("Error adding cargo:", error);
+    }
+};
+
+export const getAllCargoWhereCurrentUserIsSender = async (setError, setSuccess) => {
+    try {
+        const response = await api.get(`${BASE_API_URL}/cargo/sender`);
+        setSuccess({message: "Cargo successfully received."});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error fetching cargo data:", error);
+    }
+};
+
+export const getAllCargoWhereCurrentUserIsRecipient = async (setError, setSuccess) => {
+    try {
+        const response = await api.get(`${BASE_API_URL}/cargo/recipient`);
+        setSuccess({message: "Cargo successfully received."});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error fetching cargo data:", error);
+    }
+};
+
+export const getAllCargoByFlightId = async (flightId, setError, setSuccess) => {
+    try {
+        const response = await api.get(`${BASE_API_URL}/cargo/${flightId}`);
+        setSuccess({message: "Cargo successfully received."});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error fetching cargo data:", error);
+    }
+};
+
+
+
 export const deleteEntity = async (vehicleId, setError, setSuccess) => {
     try {
         const response = await api.delete(`${BASE_API_URL}/vehicle/${vehicleId}`);

@@ -15,6 +15,7 @@ import AuditDataTable from "./components/old/AuditDataTable";
 import VehicleImportTable from "./components/old/VehicleImportTable";
 import FlightsPage from "./components/FlightsPage";
 import MainPage from "./components/MainPage";
+import CargoPage from "./components/CargoPage"; 
 
 function App() {
     const {setError, setSuccess} = useContext(ErrorContext);
@@ -49,6 +50,8 @@ function App() {
                 {activeComponent === "flights" && <FlightsPage setActiveComponent={setActiveComponent}/>}
 
                 {activeComponent === "main" && <MainPage setActiveComponent={setActiveComponent}/>}
+
+                {activeComponent === "cargo" && <CargoPage setActiveComponent={setActiveComponent}/>} 
             </div>
         </div>
     );
