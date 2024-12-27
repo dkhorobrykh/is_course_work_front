@@ -134,6 +134,39 @@ export const assignFlight = async (scheduleId, flightData, setError, setSuccess)
     }
 }
 
+export const getAllChats = async (setError, setSuccess) => {
+    try {
+        const response = await api.get(BASE_API_URL + "/chat");
+        setSuccess({message: "Chats successfully received"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error fetching chats", error);
+    }
+};
+
+export const sendMessageToChat = async (chatId, messageData, setError, setSuccess) => {
+    try {
+        const response = await api.post(`${BASE_API_URL}/chat/${chatId}/send`, messageData);
+        setSuccess({message: "Message successfully sent"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error sending message", error);
+    }
+};
+
+export const createChat = async (secondUserId, setError, setSuccess) => {
+    try {
+        const response = await api.post(`${BASE_API_URL}/chat/${secondUserId}`);
+        setSuccess({message: "Chat successfully created"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error creating chat", error);
+    }
+};
+
 // -----------------------------------------------------------------------------
 
 export const getImportHistory = async (setError, setSuccess) => {
