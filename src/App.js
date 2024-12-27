@@ -16,6 +16,7 @@ import ManageFlightsPage from "./components/pages/ManageFlightsPage";
 import UserDocPage from "./components/pages/UserDocPage";
 import RoleListPage from "./components/pages/RoleListPage";
 import AnalysisPage from "./components/pages/AnalysisPage";
+import UserRoleListPage from "./components/pages/UserRoleListPage";
 
 function App() {
     const {setError, setSuccess} = useContext(ErrorContext);
@@ -66,6 +67,8 @@ function App() {
                 {activeComponent === "rolePage" && <RoleListPage setActiveComponent={setActiveComponent}/>}
 
                 {activeComponent === "analysisPage" && <AnalysisPage setActiveComponent={setActiveComponent}/>}
+
+                {activeComponent === "userRolePage" && <UserRoleListPage setActiveComponent={setActiveComponent}/>}
             </div>
         </div>
     );

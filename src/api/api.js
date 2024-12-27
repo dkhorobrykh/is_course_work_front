@@ -287,6 +287,39 @@ export const getAllRoles = async (setError, setSuccess) => {
     }
 }
 
+export const getAllUserRoles = async (setError, setSuccess) => {
+    try {
+        const response = await api.get(`${BASE_API_URL}/user/all`);
+        setSuccess({message: "User roles successfully received"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error getAllUserRoles ", error);
+    }
+}
+
+export const deleteUserRole = async (roleId, userId, setError, setSuccess) => {
+    try {
+        const response = await api.delete(`${BASE_API_URL}/admin/role/delete/${roleId}/from/${userId}`);
+        setSuccess({message: "User role successfully deleted"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error deleting user role", error);
+    }
+}
+
+export const addUserRole = async (roleId, userId, setError, setSuccess) => {
+    try {
+        const response = await api.post(`${BASE_API_URL}/admin/role/add/${roleId}/to/${userId}`, roleId);
+        setSuccess({message: "User role successfully added"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error adding user role", error);
+    }
+}
+
 // -----------------------------------------------------------------------------
 
 export const getImportHistory = async (setError, setSuccess) => {
