@@ -17,6 +17,7 @@ import FlightsPage from "./components/pages/FlightsPage";
 import MainPage from "./components/pages/MainPage";
 import SchedulePage from "./components/pages/SchedulePage";
 import ShipPage from "./components/pages/ShipPage";
+import CargoPage from "./components/CargoPage"; 
 
 function App() {
     const {setError, setSuccess} = useContext(ErrorContext);
@@ -53,6 +54,8 @@ function App() {
                 {activeComponent === "main" && <MainPage setActiveComponent={setActiveComponent}/>}
 
                 {activeComponent === "schedules" && <SchedulePage setActiveComponent={setActiveComponent}/>}
+
+                {activeComponent === "cargo" && <CargoPage setActiveComponent={setActiveComponent}/>} 
 
                 {activeComponent === "ships" && <ShipPage setActiveComponent={setActiveComponent}/>}
             </div>
