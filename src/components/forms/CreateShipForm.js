@@ -124,6 +124,12 @@ const CreateShipForm = ({onSave, onClose, setError, setSuccess, ship}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (shipData.serviceClasses.length === 0) {
+            setError("At least one service class is required.");
+            return;
+        }
+
         if (ship) {
             await updateShip(ship.id, shipData, setError, setSuccess);
         } else {

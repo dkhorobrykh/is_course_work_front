@@ -232,6 +232,39 @@ export const bookFlight = async (flightData, setError, setSuccess) => {
     }
 }
 
+export const addUserDoc = async (docData, setError, setSuccess) => {
+    try {
+        const response = await api.post(BASE_API_URL + `/user/docs`, docData);
+        setSuccess({message: "User doc successfully added"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error adding user doc", error);
+    }
+}
+
+export const getAllUserDocs = async (setError, setSuccess) => {
+    try {
+        const response = await api.get(`${BASE_API_URL}/user/docs`);
+        setSuccess({message: "User docs successfully received"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error getAllUsersDocs ", error);
+    }
+}
+
+export const getUserDocTypes = async (setError, setSuccess) => {
+    try {
+        const response = await api.get(`${BASE_API_URL}/user/docs/types`);
+        setSuccess({message: "User doc types successfully received"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error getUserDocTypes ", error);
+    }
+}
+
 // -----------------------------------------------------------------------------
 
 export const getImportHistory = async (setError, setSuccess) => {
