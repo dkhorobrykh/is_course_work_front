@@ -1,6 +1,6 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {ErrorContext} from "../../context/ErrorContext";
-import {getAllFlights} from "../../api/api";
+import {changeCargoStatus, changeFlightStatus, getAllFlights} from "../../api/api";
 import {
     Button,
     CircularProgress,
@@ -12,10 +12,12 @@ import {
     TableHead,
     TableRow
 } from "@mui/material";
+import {AuthContext} from "../../context/AuthContext";
 
-const ManageFlightsPage = ({user}) => {
+const ManageFlightsPage = () => {
     const [loading, setLoading] = useState(true);
     const {setError, setSuccess} = useContext(ErrorContext);
+    const {user} = useContext(AuthContext);
     const [entities, setEntities] = useState([]);
 
     const fetchData = useCallback(async () => {
@@ -40,8 +42,7 @@ const ManageFlightsPage = ({user}) => {
 
     const handleChangeFlightStatus = async (flightId) => {
         try {
-            const data = await changeFlightStatus(flightId, setError, setSuccess);
-            setEntities(data);
+            await changeFlightStatus(flightId, setError, setSuccess);
         } catch (err) {
             setError(err.response.data);
         }
@@ -49,8 +50,7 @@ const ManageFlightsPage = ({user}) => {
 
     const handleChangeCargoStatus = async (flightId) => {
         try {
-            const data = await changeCargoStatus(flightId, setError, setSuccess);
-            setEntities(data);
+            await changeCargoStatus(flightId, setError, setSuccess);
         } catch (err) {
             setError(err.response.data);
         }
@@ -100,14 +100,14 @@ const ManageFlightsPage = ({user}) => {
                                     <TableCell
                                         key="arrivalDatetime">{entity.flightSchedule.arrivalDatetime}</TableCell>
                                     <TableCell key="seats">`{entity.bookedSeats} / {entity.totalSeats}`</TableCell>
-                                    <TableCell key="chagenFlightStatus">
+                                    <TableCell key="changeFlightStatus">
                                         <div style={{padding: 0}}>
                                             <Button
                                                 variant="contained"
                                                 color="primary"
                                                 onClick={() => handleChangeFlightStatus(entity.id)}
                                                 sx={{mb: 0}}
-                                                disabled={!Boolean(user)}
+                                                disabled={!Boolean(user) || entity.flightStatus?.name === 'COMPLETED'}
                                             >
                                                 Next
                                             </Button>
@@ -120,7 +120,7 @@ const ManageFlightsPage = ({user}) => {
                                                 color="primary"
                                                 onClick={() => handleChangeCargoStatus(entity.id)}
                                                 sx={{mb: 0}}
-                                                disabled={!Boolean(user)}
+                                                disabled={!Boolean(user) || entity.cargoStatus.name === 'COMPLETED'}
                                             >
                                                 Next
                                             </Button>

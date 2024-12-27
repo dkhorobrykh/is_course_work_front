@@ -71,6 +71,10 @@ const Header = ({onLoginOpen, onRegisterOpen, user, logout, setActiveComponent})
         handleMenuClose();
     };
 
+    const handleManageFlightsClick = () => {
+        setActiveComponent("manageFlights");
+        handleMenuClose();
+    }
 
     return (
         <>
@@ -80,6 +84,7 @@ const Header = ({onLoginOpen, onRegisterOpen, user, logout, setActiveComponent})
                     <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
                         <MenuItem onClick={handleMainClick}>Main page</MenuItem>
                         <MenuItem onClick={handleFlightsClick}>Flights</MenuItem>
+                        <MenuItem onClick={handleManageFlightsClick}>Manage flights</MenuItem>
                         <MenuItem onClick={handleSchedulesClick}>Schedules</MenuItem>
                         <MenuItem onClick={handleShipsClick}>Ships</MenuItem>
                         <MenuItem onClick={handleCargoClick}>Cargo</MenuItem>
