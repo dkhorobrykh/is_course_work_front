@@ -55,9 +55,9 @@ const FlightsPage = () => {
                                 <TableCell key="shipName">Ship name</TableCell>
                                 <TableCell key="flightStatus">Flight status</TableCell>
                                 <TableCell key="cargoStatus">Cargo status</TableCell>
-                                <TableCell key="departurePlanet">DeparturePlanet</TableCell>
+                                <TableCell key="planetDeparture">DeparturePlanet</TableCell>
                                 <TableCell key="departureDatetime">Departure datetime</TableCell>
-                                <TableCell key="arrivalPlanet">Arrival planet</TableCell>
+                                <TableCell key="planetArrival">Arrival planet</TableCell>
                                 <TableCell key="arrivalDatetime">Arrival datetime</TableCell>
                                 <TableCell key="seats">Seats</TableCell>
                             </TableRow>
@@ -70,10 +70,10 @@ const FlightsPage = () => {
                                     <TableCell key="shipName">{entity.ship?.name}</TableCell>
                                     <TableCell key="flightStatus">{entity.flightStatus.name}</TableCell>
                                     <TableCell key="cargoStatus">{entity.cargoStatus.name}</TableCell>
-                                    <TableCell key="departurePlanet">{entity.schedule.departurePlanet.name}</TableCell>
-                                    <TableCell key="departureDatetime">{entity.schedule.departureDatetime}</TableCell>
-                                    <TableCell key="arrivalPlanet">{entity.schedule.arrivalPlanet.name}</TableCell>
-                                    <TableCell key="arrivalDatetime">{entity.schedule.arrivalDatetime}</TableCell>
+                                    <TableCell key="planetDeparture">{entity.flightSchedule.planetDeparture.name}</TableCell>
+                                    <TableCell key="departureDatetime">{entity.flightSchedule.departureDatetime}</TableCell>
+                                    <TableCell key="planetArrival">{entity.flightSchedule.planetArrival.name}</TableCell>
+                                    <TableCell key="arrivalDatetime">{entity.flightSchedule.arrivalDatetime}</TableCell>
                                     <TableCell key="seats">`{entity.bookedSeats} / {entity.totalSeats}`</TableCell>
                                 </TableRow>
                             ))}
