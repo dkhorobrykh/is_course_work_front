@@ -80,7 +80,7 @@ const RegisterPage = ({ setActiveComponent }) => {
                         <DesktopDatePicker
                             sx={{ width: '100%', marginTop: 2, marginBottom: 1 }}
                             label="Date of birth"
-                            inputFormat="MM/dd/yyyy"
+                            inputFormat="dd/MM/yyyy"
                             value={dateOfBirth}
                             slotProps={{
                                 textField: {
