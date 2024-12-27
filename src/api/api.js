@@ -177,6 +177,61 @@ export const getFlightAnalysisSummary = async () => {
 };
 
 
+export const changeFlightStatus = async (flightId, setError, setSuccess) => {
+    try {
+        const response = await api.post(`${BASE_API_URL}/flight/${flightId}/status-change`, flightId);
+        setSuccess({message: "Flight status successfully updated"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error changing flight status", error);
+    }
+}
+
+export const changeCargoStatus = async (flightId, setError, setSuccess) => {
+    try {
+        const response = await api.post(`${BASE_API_URL}/flight/${flightId}/cargo/status-change`, flightId);
+        setSuccess({message: "Cargo status successfully updated"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error changing cargo status", error);
+    }
+}
+
+export const getUserDocs = async (setError, setSuccess) => {
+    try {
+        const response = await api.get(BASE_API_URL + "/user/docs");
+        setSuccess({message: "User docs successfully received"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error getUserDocs ", error);
+    }
+}
+
+export const getServiceClassList = async (flightId, setError, setSuccess) => {
+    try {
+        const response = await api.get(BASE_API_URL + `/serviceClass/${flightId}`);
+        setSuccess({message: "Service Class list successfully received"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error getServiceClassList ", error);
+    }
+}
+
+export const bookFlight = async (flightData, setError, setSuccess) => {
+    try {
+        const response = await api.post(BASE_API_URL + `/flight/book`, flightData);
+        setSuccess({message: "Flight successfully booked"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error bookFlight", error);
+    }
+}
+
 // -----------------------------------------------------------------------------
 
 export const getImportHistory = async (setError, setSuccess) => {
