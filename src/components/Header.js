@@ -71,6 +71,11 @@ const Header = ({onLoginOpen, onRegisterOpen, user, logout, setActiveComponent})
         handleMenuClose();
     };
 
+    const handleAnalysisClick = () => {
+        setActiveComponent("analysisPage");
+        handleMenuClose();
+    };
+
 
     return (
         <>
@@ -84,6 +89,7 @@ const Header = ({onLoginOpen, onRegisterOpen, user, logout, setActiveComponent})
                         <MenuItem onClick={handleShipsClick}>Ships</MenuItem>
                         <MenuItem onClick={handleCargoClick}>Cargo</MenuItem>
                         <MenuItem onClick={handleChatClick}>Chat</MenuItem>
+                        <MenuItem onClick={handleAnalysisClick}>Analysis</MenuItem>
 
                         { user && (
                             <MenuItem onClick={handleVehicleImportClick}>Import vehicles</MenuItem>

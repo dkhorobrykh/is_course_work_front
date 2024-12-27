@@ -166,6 +166,16 @@ export const createChat = async (secondUserId, setError, setSuccess) => {
         console.error("Error creating chat", error);
     }
 };
+export const getFlightAnalysisSummary = async () => {
+    try {
+        const response = await api.get('/flow-analysis/summary');
+        return response.data;  
+    } catch (error) {
+        console.error("Error fetching flight analysis data:", error);
+        throw error;
+    }
+};
+
 
 // -----------------------------------------------------------------------------
 
