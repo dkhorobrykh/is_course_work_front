@@ -83,6 +83,11 @@ const Header = ({onLoginOpen, onRegisterOpen, user, logout, setActiveComponent})
         handleMenuClose();
     }
 
+    const handleGalaxy = () => {
+        setActiveComponent("galaxy");
+        handleMenuClose();
+    }
+
     const handleUserDocsClick = () => {
         setActiveComponent("userDocs");
         handleMenuClose();
@@ -115,6 +120,7 @@ const Header = ({onLoginOpen, onRegisterOpen, user, logout, setActiveComponent})
                         <MenuItem onClick={() => {}} style={{background: "#e13535"}}> vvvvvvvvvvvvv</MenuItem>
 
                         <MenuItem onClick={handleAnalysisClick}>Analysis</MenuItem>
+                        <MenuItem onClick={handleGalaxy}>Galaxy</MenuItem>
                         <MenuItem onClick={handleManageFlightsClick}>Manage flights</MenuItem>
                         <MenuItem onClick={handleRoleClick}>Roles</MenuItem>
                         <MenuItem onClick={handleUserRoleClick}>User roles</MenuItem>

@@ -12,7 +12,9 @@ import SchedulePage from "./components/pages/SchedulePage";
 import ShipPage from "./components/pages/ShipPage";
 import CargoPage from "./components/CargoPage";
 import ChatPage from "./components/pages/ChatPage";
+import AnalysisPage from "./components/pages/AnalysisPage";
 import ManageFlightsPage from "./components/pages/ManageFlightsPage";
+import GalaxyPage from "./components/pages/GalaxyPage";
 import UserDocPage from "./components/pages/UserDocPage";
 import RoleListPage from "./components/pages/RoleListPage";
 import AnalysisPage from "./components/pages/AnalysisPage";
@@ -60,7 +62,11 @@ function App() {
 
                 {activeComponent === "chatPage" && <ChatPage setActiveComponent={setActiveComponent}/>}
 
+                {activeComponent === "analysisPage" && <AnalysisPage setActiveComponent={setActiveComponent}/>}
+
                 {activeComponent === "manageFlights" && <ManageFlightsPage setActiveComponent={setActiveComponent}/>}
+
+                {activeComponent === "galaxy" && <GalaxyPage setActiveComponent={setActiveComponent}/>}
 
                 {activeComponent === "userDocs" && <UserDocPage setActiveComponent={setActiveComponent}/>}
 
@@ -69,6 +75,7 @@ function App() {
                 {activeComponent === "analysisPage" && <AnalysisPage setActiveComponent={setActiveComponent}/>}
 
                 {activeComponent === "userRolePage" && <UserRoleListPage setActiveComponent={setActiveComponent}/>}
+
             </div>
         </div>
     );

@@ -232,6 +232,19 @@ export const bookFlight = async (flightData, setError, setSuccess) => {
     }
 }
 
+
+export const getAllPlanets = async (setError, setSuccess) => {
+    try {
+        const response = await api.get(BASE_API_URL + "/planet/all"); 
+        setSuccess({ message: "Planets successfully received" });
+        return response.data; 
+    } catch (error) {
+        setError(error.response?.data || "Error fetching planets data");
+        console.error("Error fetching planets data", error);
+        return []; 
+    }
+};
+
 export const addUserDoc = async (docData, setError, setSuccess) => {
     try {
         const response = await api.post(BASE_API_URL + `/user/docs`, docData);
