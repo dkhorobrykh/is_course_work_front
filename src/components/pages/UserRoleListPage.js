@@ -39,10 +39,14 @@ const UserRoleListPage = () => {
     useEffect(() => {
         const intervalId = setInterval(() => {
             fetchData();
-        }, 1000);
+        }, 5000);
 
         return () => clearInterval(intervalId);
     });
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     const handleDelete = async (roleId, userId) => {
         await deleteUserRole(roleId, userId, setError, setSuccess);

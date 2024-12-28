@@ -4,7 +4,7 @@ import {Box, Button, Tooltip} from "@mui/material";
 import CreateScheduleForm from "../forms/CreateScheduleForm";
 import CreateInsuranceForm from "../forms/CreateInsuranceForm";
 
-const AddInsuranceForPassengerButton = ({passenger, flightId, user}) => {
+const AddInsuranceForPassengerButton = ({passenger, flightId, cargoId, user, disabled}) => {
     const [openCreateForm, setOpenCreateForm] = React.useState(false);
     const {setError, setSuccess} = useContext(ErrorContext);
 
@@ -25,7 +25,7 @@ const AddInsuranceForPassengerButton = ({passenger, flightId, user}) => {
                             color="primary"
                             onClick={handleOpenCreateForm}
                             sx={{mb: 0}}
-                            disabled={!Boolean(user)}
+                            disabled={!Boolean(user) || disabled}
                         >
                             Add new insurance
                         </Button>
@@ -34,7 +34,7 @@ const AddInsuranceForPassengerButton = ({passenger, flightId, user}) => {
 
                 {openCreateForm &&
                     <CreateInsuranceForm onSave={handleSave} onClose={handleCloseCreateForm} setError={setError}
-                                        setSuccess={setSuccess} passengerId={passenger} flightId={flightId} user={user}/>
+                                        setSuccess={setSuccess} passengerId={passenger} flightId={flightId} cargoId={cargoId} user={user}/>
                 }
             </Box>
         </div>

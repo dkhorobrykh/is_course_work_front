@@ -110,7 +110,7 @@ const BookedFlightsPage = () => {
                                     ) : (
                                         entity.insuranceIssueds.map((insurance) => (
                                             <Typography key={insurance.id}>
-                                                {insurance.passengerId ? "Passenger Insurance" : "Cargo Insurance"}: {insurance.totalCost}$
+                                                {insurance.insuranceProgramName}: {insurance.totalCost}$
                                             </Typography>
                                         ))
                                     )}

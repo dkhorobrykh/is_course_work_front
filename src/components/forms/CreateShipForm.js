@@ -82,10 +82,8 @@ const CreateShipForm = ({onSave, onClose, setError, setSuccess, ship}) => {
     });
 
     useEffect(() => {
-        if (ship) {
-            setShipData(ship);
-        }
-    });
+        fetchAllLists();
+    }, []);
 
     const handleInputChange = (e) => {
         let {name, value} = e.target;

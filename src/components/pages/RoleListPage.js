@@ -31,6 +31,10 @@ const RoleListPage = () => {
         return () => clearInterval(intervalId);
     });
 
+    useEffect(() => {
+        fetchData();
+    }, []);
+
     if (loading) return <CircularProgress />;
 
     return (

@@ -40,6 +40,10 @@ const ManageFlightsPage = () => {
         return () => clearInterval(intervalId);
     }, [fetchData]);
 
+    useEffect(() => {
+        fetchData();
+    }, []);
+
     const handleChangeFlightStatus = async (flightId) => {
         try {
             await changeFlightStatus(flightId, setError, setSuccess);

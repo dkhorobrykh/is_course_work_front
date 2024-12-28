@@ -48,6 +48,10 @@ const CreateDocumentForm = ({setError, setSuccess, onClose}) => {
         return () => clearInterval(intervalId);
     }, [fetchUserDocTypeList]);
 
+    useEffect(() => {
+        fetchUserDocTypeList();
+    }, []);
+
     const handleInputChange = (e) => {
         const {name, value} = e.target;
 

@@ -38,6 +38,10 @@ const AssignFlightForm = ({onSave, onClose, setError, setSuccess, scheduleId}) =
         return () => clearInterval(intervalId);
     }, [fetchShipList]);
 
+    useEffect(() => {
+        fetchShipList();
+    }, []);
+
     const handleInputChange = (e) => {
         const {name, value} = e.target;
 

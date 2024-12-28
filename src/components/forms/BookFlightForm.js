@@ -49,6 +49,10 @@ const BookFlightForm = ({onSave, onClose, setError, setSuccess, flightId, user})
         return () => clearInterval(intervalId);
     }, [fetchUserDocsList]);
 
+    useEffect(() => {
+        fetchUserDocsList();
+    }, []);
+
     const fetchServiceClassList = useCallback(async () => {
         try {
             const data = await getServiceClassList(flightId, setError, () => {});
@@ -65,6 +69,10 @@ const BookFlightForm = ({onSave, onClose, setError, setSuccess, flightId, user})
 
         return () => clearInterval(intervalId);
     }, [fetchServiceClassList]);
+
+    useEffect(() => {
+        fetchServiceClassList();
+    }, []);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
