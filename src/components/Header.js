@@ -88,6 +88,16 @@ const Header = ({onLoginOpen, onRegisterOpen, user, logout, setActiveComponent})
         handleMenuClose();
     }
 
+    const handleRoleClick = () => {
+        setActiveComponent("rolePage");
+        handleMenuClose();
+    }
+
+    const handleUserRoleClick = () => {
+        setActiveComponent("userRolePage");
+        handleMenuClose();
+    }
+
     return (
         <>
             <AppBar position="static" style={{zIndex: 10}}>
@@ -97,12 +107,19 @@ const Header = ({onLoginOpen, onRegisterOpen, user, logout, setActiveComponent})
                         <MenuItem onClick={handleMainClick}>Main page</MenuItem>
                         <MenuItem onClick={handleUserDocsClick}>Documents</MenuItem>
                         <MenuItem onClick={handleFlightsClick}>Flights</MenuItem>
-                        <MenuItem onClick={handleManageFlightsClick}>Manage flights</MenuItem>
-                        <MenuItem onClick={handleSchedulesClick}>Schedules</MenuItem>
-                        <MenuItem onClick={handleShipsClick}>Ships</MenuItem>
                         <MenuItem onClick={handleCargoClick}>Cargo</MenuItem>
                         <MenuItem onClick={handleChatClick}>Chat</MenuItem>
+
+                        <MenuItem onClick={() => {}} style={{background: "#e13535"}}>----------------------</MenuItem>
+                        <MenuItem onClick={() => {}} style={{background: "#e13535"}}>| ADMIN ZONE |</MenuItem>
+                        <MenuItem onClick={() => {}} style={{background: "#e13535"}}> vvvvvvvvvvvvv</MenuItem>
+
                         <MenuItem onClick={handleAnalysisClick}>Analysis</MenuItem>
+                        <MenuItem onClick={handleManageFlightsClick}>Manage flights</MenuItem>
+                        <MenuItem onClick={handleRoleClick}>Roles</MenuItem>
+                        <MenuItem onClick={handleUserRoleClick}>User roles</MenuItem>
+                        <MenuItem onClick={handleSchedulesClick}>Schedules</MenuItem>
+                        <MenuItem onClick={handleShipsClick}>Ships</MenuItem>
 
                         { user && (
                             <MenuItem onClick={handleVehicleImportClick}>Import vehicles</MenuItem>
