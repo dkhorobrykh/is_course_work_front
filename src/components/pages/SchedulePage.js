@@ -27,10 +27,14 @@ const SchedulePage = (callback, deps) => {
     useEffect(() => {
         const intervalId = setInterval(() => {
             fetchData();
-        }, 1000);
+        }, 5000);
 
         return () => clearInterval(intervalId);
     });
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     if (loading) return <CircularProgress />;
 

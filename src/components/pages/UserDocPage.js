@@ -41,6 +41,10 @@ const UserDocPage = () => {
         return () => clearInterval(intervalId);
     }, [fetchData]);
 
+    useEffect(() => {
+        fetchData();
+    }, []);
+
     if (loading) return <CircularProgress/>;
 
     return (

@@ -48,10 +48,8 @@ const CreateScheduleForm = ({schedule, onClose, onSave, setError, setSuccess}) =
     }, [fetchPlanetList]);
 
     useEffect(() => {
-        if (schedule) {
-            setScheduleData(schedule);
-        }
-    });
+        fetchPlanetList();
+    }, []);
 
     const handleInputChange = (e) => {
         const {name, value} = e.target;

@@ -10,7 +10,7 @@ import FlightsPage from "./components/pages/FlightsPage";
 import MainPage from "./components/pages/MainPage";
 import SchedulePage from "./components/pages/SchedulePage";
 import ShipPage from "./components/pages/ShipPage";
-import CargoPage from "./components/CargoPage";
+import CargoPage from "./components/pages/CargoPage";
 import ChatPage from "./components/pages/ChatPage";
 import ManageFlightsPage from "./components/pages/ManageFlightsPage";
 import GalaxyPage from "./components/pages/GalaxyPage";
@@ -19,6 +19,8 @@ import RoleListPage from "./components/pages/RoleListPage";
 import AnalysisPage from "./components/pages/AnalysisPage";
 import UserRoleListPage from "./components/pages/UserRoleListPage";
 import PreFlightCheckPage from "./components/pages/PreFlightCheckPage";
+import BookedFlightsPage from "./components/pages/BookedFlightsPage";
+import InsuranceProgramPage from "./components/pages/InsuranceProgramPage";
 
 function App() {
     const {setError, setSuccess} = useContext(ErrorContext);
@@ -76,6 +78,9 @@ function App() {
 
                 {activeComponent === "checkingPage" && <PreFlightCheckPage setActiveComponent={setActiveComponent}/>}
 
+                {activeComponent === "bookedFlightsPage" && <BookedFlightsPage setActiveComponent={setActiveComponent}/>}
+
+                {activeComponent === "insurancePrograms" && <InsuranceProgramPage setActiveComponent={setActiveComponent}/>}
             </div>
         </div>
     );

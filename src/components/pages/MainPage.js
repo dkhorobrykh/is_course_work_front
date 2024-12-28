@@ -15,7 +15,7 @@ const MainPage = () => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            flexDirection: 'column',  // Чтобы текст и блюр были вертикально
+            flexDirection: 'column',
         }}>
             <iframe
                 src="https://www.youtube.com/embed/SjC5bezSaWU?autoplay=1&mute=1&loop=1&playlist=SjC5bezSaWU&controls=0&showinfo=0&rel=0&modestbranding=1"
@@ -33,18 +33,17 @@ const MainPage = () => {
                 allowFullScreen
             ></iframe>
 
-            {/* Блок с блюром под текстом */}
             <div style={{
                 position: 'absolute',
                 height: '20%',
-                top: '52.5%',  // Располагаем под текстом
+                top: '52.5%',
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
-                width: '85%', // Ширина, чтобы был отступ от краев
+                width: '85%',
                 padding: '1rem',
-                background: 'rgb(113,112,110,.15)',  // Полупрозрачный чёрный фон
+                background: 'rgb(113,112,110,.15)',
                 borderRadius: '10px',
-                filter: 'blur(5px)', // Добавляем блюр
+                filter: 'blur(5px)',
                 zIndex: -3,
             }}></div>
 

@@ -1,6 +1,12 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { ErrorContext } from "../context/ErrorContext";
-import { getAllCargo, addCargo, getAllCargoWhereCurrentUserIsSender, getAllCargoWhereCurrentUserIsRecipient, getAllCargoByFlightId } from "../api/api";
+import React, {useCallback, useContext, useEffect, useState} from 'react';
+import {ErrorContext} from "../../context/ErrorContext";
+import {
+    getAllCargo,
+    addCargo,
+    getAllCargoWhereCurrentUserIsSender,
+    getAllCargoWhereCurrentUserIsRecipient,
+    getAllCargoByFlightId
+} from "../../api/api";
 import {
     CircularProgress,
     Paper,
@@ -16,12 +22,15 @@ import {
     DialogActions,
     DialogContent,
     DialogTitle,
-    TablePagination
+    TablePagination, Box
 } from "@mui/material";
+import AddInsuranceForPassengerButton from "../buttons/AddInsuranceForPassengerButton";
+import {AuthContext} from "../../context/AuthContext";
 
 const CargoPage = () => {
     const [loading, setLoading] = useState(true);
-    const { setError, setSuccess } = useContext(ErrorContext);
+    const {setError, setSuccess} = useContext(ErrorContext);
+    const {user} = useContext(AuthContext);
     const [entities, setEntities] = useState([]);
     const [open, setOpen] = useState(false);
     const [newCargo, setNewCargo] = useState({
@@ -40,21 +49,25 @@ const CargoPage = () => {
 
     const [filter, setFilter] = useState('all');
     const [flightId, setFlightId] = useState('');
-    
-    const [page, setPage] = useState(0); 
-    const [rowsPerPage, setRowsPerPage] = useState(5); 
+
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
 
     const fetchData = useCallback(async () => {
         try {
             let data;
             if (filter === 'sender') {
-                data = await getAllCargoWhereCurrentUserIsSender(setError, setSuccess);
+                data = await getAllCargoWhereCurrentUserIsSender(setError, () => {
+                });
             } else if (filter === 'recipient') {
-                data = await getAllCargoWhereCurrentUserIsRecipient(setError, setSuccess);
+                data = await getAllCargoWhereCurrentUserIsRecipient(setError, () => {
+                });
             } else if (filter === 'flight') {
-                data = await getAllCargoByFlightId(flightId, setError, setSuccess);
+                data = await getAllCargoByFlightId(flightId, setError, () => {
+                });
             } else {
-                data = await getAllCargo(setError, setSuccess);
+                data = await getAllCargo(setError, () => {
+                });
             }
             setEntities(Array.isArray(data) ? data : []);
         } catch (err) {
@@ -62,19 +75,27 @@ const CargoPage = () => {
         } finally {
             setLoading(false);
         }
-    }, [setError, setSuccess, filter, flightId]);
+    }, [setError, filter, flightId]);
 
     useEffect(() => {
         fetchData();
     }, [fetchData]);
-    
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            fetchData();
+        }, 5000);
+
+        return () => clearInterval(intervalId);
+    });
+
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
 
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0); 
+        setPage(0);
     };
 
     const handleAddCargo = async () => {
@@ -115,8 +136,8 @@ const CargoPage = () => {
             setError(err.response?.data || 'An error occurred');
         }
     };
-    
-    if (loading) return <CircularProgress />;
+
+    if (loading) return <CircularProgress/>;
 
     return (
         <div>
@@ -130,7 +151,7 @@ const CargoPage = () => {
                 value={flightId}
                 onChange={(e) => setFlightId(e.target.value)}
                 size="small"
-                sx={{ width: '150px' }}
+                sx={{width: '150px'}}
             />
             <Button variant="contained" onClick={() => setFilter('flight')}>Filter by Flight ID</Button>
 
@@ -146,6 +167,7 @@ const CargoPage = () => {
                                 <TableCell>Sender</TableCell>
                                 <TableCell>Recipient</TableCell>
                                 <TableCell>Flight Id</TableCell>
+                                <TableCell>Cargo insurance</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -156,6 +178,25 @@ const CargoPage = () => {
                                     <TableCell>{entity.senderId}</TableCell>
                                     <TableCell>{entity.recipientId}</TableCell>
                                     <TableCell>{entity.flight ? entity.flight.id : 'not assigned'}</TableCell>
+                                    <TableCell>
+                                        {entity.insuranceIssueds?.length === 1
+                                            ? "✔ Issued"
+                                            : (
+                                                <Box sx={{textAlign: 'left'}}>
+                                                    <AddInsuranceForPassengerButton
+                                                        flightId={entity.flight?.id}
+                                                        cargoId={entity.id}
+                                                        user={user}
+                                                        onSave={() => {
+                                                        }}
+                                                        onClose={() => {
+                                                        }}
+                                                        disabled={!entity.flight}
+                                                    />
+                                                </Box>
+                                            )
+                                        }
+                                    </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -181,9 +222,9 @@ const CargoPage = () => {
                         type="number"
                         fullWidth
                         value={newCargo.senderId}
-                        onChange={(e) => setNewCargo({ ...newCargo, senderId: e.target.value })}
+                        onChange={(e) => setNewCargo({...newCargo, senderId: e.target.value})}
                         InputProps={{
-                            inputProps: { min: 1 }
+                            inputProps: {min: 1}
                         }}
                     />
 
@@ -193,9 +234,9 @@ const CargoPage = () => {
                         type="number"
                         fullWidth
                         value={newCargo.recipientId}
-                        onChange={(e) => setNewCargo({ ...newCargo, recipientId: e.target.value })}
+                        onChange={(e) => setNewCargo({...newCargo, recipientId: e.target.value})}
                         InputProps={{
-                            inputProps: { min: 1 }
+                            inputProps: {min: 1}
                         }}
                     />
 
@@ -205,9 +246,9 @@ const CargoPage = () => {
                         type="number"
                         fullWidth
                         value={newCargo.weight}
-                        onChange={(e) => setNewCargo({ ...newCargo, weight: e.target.value })}
+                        onChange={(e) => setNewCargo({...newCargo, weight: e.target.value})}
                         InputProps={{
-                            inputProps: { min: 1 }
+                            inputProps: {min: 1}
                         }}
                     />
 
@@ -217,9 +258,9 @@ const CargoPage = () => {
                         type="number"
                         fullWidth
                         value={newCargo.insuranceProgramId}
-                        onChange={(e) => setNewCargo({ ...newCargo, insuranceProgramId: e.target.value })}
+                        onChange={(e) => setNewCargo({...newCargo, insuranceProgramId: e.target.value})}
                         InputProps={{
-                            inputProps: { min: 1 }
+                            inputProps: {min: 1}
                         }}
                     />
 
@@ -229,9 +270,9 @@ const CargoPage = () => {
                         type="number"
                         fullWidth
                         value={newCargo.shipId}
-                        onChange={(e) => setNewCargo({ ...newCargo, shipId: e.target.value })}
+                        onChange={(e) => setNewCargo({...newCargo, shipId: e.target.value})}
                         InputProps={{
-                            inputProps: { min: 1 }
+                            inputProps: {min: 1}
                         }}
                     />
 
@@ -251,7 +292,7 @@ const CargoPage = () => {
                             })
                         }
                         InputProps={{
-                            inputProps: { min: 1 }
+                            inputProps: {min: 1}
                         }}
                     />
 
@@ -271,7 +312,7 @@ const CargoPage = () => {
                             })
                         }
                         InputProps={{
-                            inputProps: { min: 1 }
+                            inputProps: {min: 1}
                         }}
                     />
 
@@ -291,7 +332,7 @@ const CargoPage = () => {
                             })
                         }
                         InputProps={{
-                            inputProps: { min: 1 }
+                            inputProps: {min: 1}
                         }}
                     />
 
@@ -301,9 +342,9 @@ const CargoPage = () => {
                         type="number"
                         fullWidth
                         value={newCargo.flightId}
-                        onChange={(e) => setNewCargo({ ...newCargo, flightId: e.target.value })}
+                        onChange={(e) => setNewCargo({...newCargo, flightId: e.target.value})}
                         InputProps={{
-                            inputProps: { min: 1 }
+                            inputProps: {min: 1}
                         }}
                     />
 

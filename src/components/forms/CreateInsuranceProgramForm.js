@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {addSchedule, addUserDoc, getPlanetList, getUserDocTypes, updateSchedule} from "../../api/api";
+import {addInsuranceProgram, addSchedule, getPlanetList, updateSchedule} from "../../api/api";
 import {Box, Button, MenuItem, Modal, TextField} from "@mui/material";
 import {DesktopDateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
@@ -20,49 +20,28 @@ const fieldSt = {
     my: 1.25,
 };
 
-const CreateDocumentForm = ({setError, setSuccess, onClose}) => {
-    const [userDocTypeList, setUserDocTypeList] = useState([]);
-
-    const [docData, setDocData] = useState({
-        userDocTypeName: "",
-        number: "",
-        series: "",
-        issueDate: null,
-        expirationDate: null
+const CreateInsuranceProgramForm = ({setError, setSuccess, user, onSave, onClose}) => {
+    const [insuranceProgramData, setInsuranceProgramData] = useState({
+        name: "",
+        rank: null,
+        minCost: null,
+        refundAmount: null,
+        startDatetime: null,
+        endDatetime: null,
+        active: true
     });
-
-    const fetchUserDocTypeList = useCallback(async () => {
-        try {
-            const data = await getUserDocTypes(setError, () => {});
-            setUserDocTypeList(data);
-        } catch (error) {
-            setError(error.response.data);
-        }
-    }, []);
-
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            fetchUserDocTypeList();
-        }, 5000);
-
-        return () => clearInterval(intervalId);
-    }, [fetchUserDocTypeList]);
-
-    useEffect(() => {
-        fetchUserDocTypeList();
-    }, []);
 
     const handleInputChange = (e) => {
         const {name, value} = e.target;
 
-        setDocData(prevState => ({
+        setInsuranceProgramData(prevState => ({
             ...prevState,
             [name]: value
         }));
     };
 
     const handleDateChange = (field, date) => {
-        setDocData(prevState => ({
+        setInsuranceProgramData(prevState => ({
             ...prevState,
             [field]: date
         }));
@@ -70,7 +49,7 @@ const CreateDocumentForm = ({setError, setSuccess, onClose}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await addUserDoc(docData, setError, setSuccess);
+        await addInsuranceProgram(insuranceProgramData, setError, setSuccess);
         onClose();
     }
 
@@ -79,24 +58,9 @@ const CreateDocumentForm = ({setError, setSuccess, onClose}) => {
             <Box sx={style}>
                 <form onSubmit={handleSubmit}>
                     <TextField
-                        select
-                        label="Document type"
-                        name="userDocTypeName"
-                        value={docData.userDocTypeName}
-                        onChange={handleInputChange}
-                        fullWidth
-                        sx={fieldSt}
-                        required
-                    >
-                        {userDocTypeList.map(docType => (
-                            <MenuItem value={docType.name}>{docType.name}</MenuItem>
-                        ))};
-                    </TextField>
-
-                    <TextField
-                        label="Number"
-                        name="number"
-                        value={docData.number}
+                        label="Name"
+                        name="name"
+                        value={insuranceProgramData.name}
                         onChange={handleInputChange}
                         fullWidth
                         sx={fieldSt}
@@ -104,9 +68,32 @@ const CreateDocumentForm = ({setError, setSuccess, onClose}) => {
                     />
 
                     <TextField
-                        label="Series"
-                        name="series"
-                        value={docData.series}
+                        type="number"
+                        label="Rank"
+                        name="rank"
+                        value={insuranceProgramData.rank}
+                        onChange={handleInputChange}
+                        fullWidth
+                        sx={fieldSt}
+                        required
+                    />
+
+                    <TextField
+                        type="number"
+                        label="Minimal cost"
+                        name="minCost"
+                        value={insuranceProgramData.minCost}
+                        onChange={handleInputChange}
+                        fullWidth
+                        sx={fieldSt}
+                        required
+                    />
+
+                    <TextField
+                        type="number"
+                        label="Refund amount"
+                        name="refundAmount"
+                        value={insuranceProgramData.refundAmount}
                         onChange={handleInputChange}
                         fullWidth
                         sx={fieldSt}
@@ -116,14 +103,14 @@ const CreateDocumentForm = ({setError, setSuccess, onClose}) => {
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DesktopDateTimePicker
                             sx={{ width: '100%', marginTop: 2, marginBottom: 1 }}
-                            label="Issue date"
-                            value={docData.issueDate}
+                            label="Start datetime"
+                            value={insuranceProgramData.startDatetime}
                             slotProps={{
                                 textField: {
                                     required: true,
                                 },
                             }}
-                            onChange={(date) => handleDateChange('issueDate', date)}
+                            onChange={(date) => handleDateChange('startDatetime', date)}
                             renderInput={(params) => <TextField {...params} fullWidth margin="normal" required />}
                         />
                     </LocalizationProvider>
@@ -131,20 +118,20 @@ const CreateDocumentForm = ({setError, setSuccess, onClose}) => {
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DesktopDateTimePicker
                             sx={{ width: '100%', marginTop: 2, marginBottom: 1 }}
-                            label="Expiration date"
-                            value={docData.expirationDate}
+                            label="End datetime"
+                            value={insuranceProgramData.endDatetime}
                             slotProps={{
                                 textField: {
                                     required: true,
                                 },
                             }}
-                            onChange={(date) => handleDateChange('expirationDate', date)}
+                            onChange={(date) => handleDateChange('endDatetime', date)}
                             renderInput={(params) => <TextField {...params} fullWidth margin="normal" required />}
                         />
                     </LocalizationProvider>
 
                     <Button type="submit" variant="contained" color="primary" fullWidth sx={fieldSt}>
-                        Add document
+                        Add insurance program
                     </Button>
                 </form>
             </Box>
@@ -152,4 +139,4 @@ const CreateDocumentForm = ({setError, setSuccess, onClose}) => {
     );
 };
 
-export default CreateDocumentForm;
+export default CreateInsuranceProgramForm;

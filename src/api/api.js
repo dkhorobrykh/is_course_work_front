@@ -342,6 +342,61 @@ export const performPreFlightCheck = async (scheduleId) => {
     }
 };
 
+export const getAllBooks = async (setError, setSuccess) => {
+    try {
+        const response = await api.get(BASE_API_URL + "/passenger");
+        setSuccess({message: "Books successfully received"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error fetching books data", error);
+    }
+}
+
+export const getAvailableInsurancePrograms = async (flightId, setError, setSuccess) => {
+    try {
+        const response = await api.get(`${BASE_API_URL}/insurance/programs/${flightId}`);
+        setSuccess({message: "Insurance programs successfully received"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error fetching insurance programs", error);
+    }
+}
+
+export const addInsurance = async (insuranceData, setError, setSuccess) => {
+    try {
+        const response = await api.post(BASE_API_URL + "/insurance", insuranceData);
+        setSuccess({message: "Insurance successfully added"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error adding insurance", error);
+    }
+}
+
+export const getAllInsurancePrograms = async (setError, setSuccess) => {
+    try {
+        const response = await api.get(`${BASE_API_URL}/insurance/programs`);
+        setSuccess({message: "Insurance programs successfully received"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error fetching insurance programs ", error);
+    }
+}
+
+export const addInsuranceProgram = async (insuranceProgramData, setError, setSuccess) => {
+    try {
+        const response = await api.post(`${BASE_API_URL}/insurance/programs`, insuranceProgramData);
+        setSuccess({message: "Successfully added insurance program"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error adding new insurance program ", error);
+    }
+}
+
 // -----------------------------------------------------------------------------
 
 export const getImportHistory = async (setError, setSuccess) => {

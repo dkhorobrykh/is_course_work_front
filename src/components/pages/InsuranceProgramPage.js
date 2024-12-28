@@ -1,11 +1,13 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {ErrorContext} from "../../context/ErrorContext";
 import {AuthContext} from "../../context/AuthContext";
+import {getAllInsurancePrograms, getAllSchedules} from "../../api/api";
 import {CircularProgress, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
-import AddRoleButton from "../buttons/AddRoleButton";
-import {getAllRoles} from "../../api/api";
+import AddScheduleButton from "../buttons/AddScheduleButton";
+import AssignFlightForm from "../forms/AssignFlightForm";
+import AddInsuranceProgramButton from "../buttons/AddInsuranceProgramButton";
 
-const RoleListPage = () => {
+const InsuranceProgramPage = () => {
     const [loading, setLoading] = useState(true);
     const {setError, setSuccess} = useContext(ErrorContext);
     const {user} = useContext(AuthContext);
@@ -13,7 +15,7 @@ const RoleListPage = () => {
 
     const fetchData = useCallback(async () => {
         try {
-            const data = await getAllRoles(setError, () => {
+            const data = await getAllInsurancePrograms(setError, () => {
             });
             setEntities(data);
         } catch (err) {
@@ -26,7 +28,7 @@ const RoleListPage = () => {
     useEffect(() => {
         const intervalId = setInterval(() => {
             fetchData();
-        }, 2500);
+        }, 5000);
 
         return () => clearInterval(intervalId);
     });
@@ -39,10 +41,10 @@ const RoleListPage = () => {
 
     return (
         <div>
-            <AddRoleButton user={user}/>
+            <AddInsuranceProgramButton user={user}/>
             {entities?.length === 0 ? (
                 <p>
-                    Sorry, there are no roles in the database :( <br/>
+                    Sorry, there are no insurance programs in the database :( <br/>
                 </p>
             ) : (
                 <TableContainer component={Paper}>
@@ -50,22 +52,24 @@ const RoleListPage = () => {
                         <TableHead>
                             <TableRow>
                                 <TableCell key="id">Id</TableCell>
-                                <TableCell key="name">Name</TableCell>
-                                <TableCell key="Flight">Flight</TableCell>
-                                <TableCell key="Planet">Planet</TableCell>
-                                <TableCell key="active">Active</TableCell>
-                                <TableCell key="expirationDatetime">Expiration datetime</TableCell>
+                                <TableCell key="Name">Name</TableCell>
+                                <TableCell key="rank">Rank</TableCell>
+                                <TableCell key="minCost">Minimal cost</TableCell>
+                                <TableCell key="refundAmount">Refund amount</TableCell>
+                                <TableCell key="startDatetime">Start datetime</TableCell>
+                                <TableCell key="endDatetime">End datetime</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {entities.map((entity) => (
                                 <TableRow key={entity.id}>
                                     <TableCell key="id">{entity.id}</TableCell>
-                                    <TableCell key="name">{entity.name}</TableCell>
-                                    <TableCell key="flight">{entity.flight?.name}</TableCell>
-                                    <TableCell key="planet">{entity.planet?.name}</TableCell>
-                                    <TableCell key="active">{entity.active}</TableCell>
-                                    <TableCell key="expirationDatetime">{entity.expirationDatetime}</TableCell>
+                                    <TableCell key="Name">{entity.name}</TableCell>
+                                    <TableCell key="rank">{entity.rank}</TableCell>
+                                    <TableCell key="minCost">{entity.minCost}</TableCell>
+                                    <TableCell key="refundAmount">{entity.refundAmount}</TableCell>
+                                    <TableCell key="startDatetime">{entity.startDatetime}</TableCell>
+                                    <TableCell key="endDatetime">{entity.endDatetime}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -76,4 +80,4 @@ const RoleListPage = () => {
     );
 };
 
-export default RoleListPage;
+export default InsuranceProgramPage;
