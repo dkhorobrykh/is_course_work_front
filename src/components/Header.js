@@ -108,6 +108,11 @@ const Header = ({onLoginOpen, onRegisterOpen, user, logout, setActiveComponent})
         handleMenuClose();
     }
 
+    const handleBookedFlightsClick = () => {
+        setActiveComponent("bookedFlightsPage");
+        handleMenuClose();
+    }
+
     return (
         <>
             <AppBar position="static" style={{zIndex: 10}}>
@@ -115,23 +120,24 @@ const Header = ({onLoginOpen, onRegisterOpen, user, logout, setActiveComponent})
                     <Button color="inherit" onClick={handleMenuOpen}><MenuOpenIcon/></Button>
                     <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
                         <MenuItem onClick={handleMainClick}>Main page</MenuItem>
-                        <MenuItem onClick={handleUserDocsClick}>Documents</MenuItem>
-                        <MenuItem onClick={handleFlightsClick}>Flights</MenuItem>
+                        <MenuItem onClick={handleBookedFlightsClick}>Booked flights</MenuItem>
                         <MenuItem onClick={handleCargoClick}>Cargo</MenuItem>
                         <MenuItem onClick={handleChatClick}>Chat</MenuItem>
+                        <MenuItem onClick={handleUserDocsClick}>Documents</MenuItem>
+                        <MenuItem onClick={handleFlightsClick}>Flights</MenuItem>
+                        <MenuItem onClick={handleGalaxy}>Galaxy</MenuItem>
 
                         <MenuItem onClick={() => {}} style={{background: "#e13535"}}>----------------------</MenuItem>
                         <MenuItem onClick={() => {}} style={{background: "#e13535"}}>| ADMIN ZONE |</MenuItem>
                         <MenuItem onClick={() => {}} style={{background: "#e13535"}}> vvvvvvvvvvvvv</MenuItem>
 
                         <MenuItem onClick={handleAnalysisClick}>Analysis</MenuItem>
-                        <MenuItem onClick={handleGalaxy}>Galaxy</MenuItem>
                         <MenuItem onClick={handleManageFlightsClick}>Manage flights</MenuItem>
+                        <MenuItem onClick={handleCheck}>Pre Flight Checking</MenuItem>
                         <MenuItem onClick={handleRoleClick}>Roles</MenuItem>
                         <MenuItem onClick={handleUserRoleClick}>User roles</MenuItem>
                         <MenuItem onClick={handleSchedulesClick}>Schedules</MenuItem>
                         <MenuItem onClick={handleShipsClick}>Ships</MenuItem>
-                        <MenuItem onClick={handleCheck}>Pre Flight Checking</MenuItem>
 
                         { user && (
                             <MenuItem onClick={handleVehicleImportClick}>Import vehicles</MenuItem>

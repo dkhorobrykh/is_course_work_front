@@ -19,6 +19,7 @@ import RoleListPage from "./components/pages/RoleListPage";
 import AnalysisPage from "./components/pages/AnalysisPage";
 import UserRoleListPage from "./components/pages/UserRoleListPage";
 import PreFlightCheckPage from "./components/pages/PreFlightCheckPage";
+import BookedFlightsPage from "./components/pages/BookedFlightsPage";
 
 function App() {
     const {setError, setSuccess} = useContext(ErrorContext);
@@ -76,6 +77,7 @@ function App() {
 
                 {activeComponent === "checkingPage" && <PreFlightCheckPage setActiveComponent={setActiveComponent}/>}
 
+                {activeComponent === "bookedFlightsPage" && <BookedFlightsPage setActiveComponent={setActiveComponent}/>}
             </div>
         </div>
     );
