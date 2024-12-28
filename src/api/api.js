@@ -333,6 +333,15 @@ export const addUserRole = async (roleId, userId, setError, setSuccess) => {
     }
 }
 
+export const performPreFlightCheck = async (scheduleId) => {
+    try {
+        const response = await api.post(`${BASE_API_URL}/preflight/${scheduleId}/check`);
+        return response;
+    } catch (error) {
+        throw error; 
+    }
+};
+
 // -----------------------------------------------------------------------------
 
 export const getImportHistory = async (setError, setSuccess) => {

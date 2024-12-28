@@ -103,6 +103,11 @@ const Header = ({onLoginOpen, onRegisterOpen, user, logout, setActiveComponent})
         handleMenuClose();
     }
 
+    const handleCheck = () => {
+        setActiveComponent("checkingPage");
+        handleMenuClose();
+    }
+
     return (
         <>
             <AppBar position="static" style={{zIndex: 10}}>
@@ -126,6 +131,7 @@ const Header = ({onLoginOpen, onRegisterOpen, user, logout, setActiveComponent})
                         <MenuItem onClick={handleUserRoleClick}>User roles</MenuItem>
                         <MenuItem onClick={handleSchedulesClick}>Schedules</MenuItem>
                         <MenuItem onClick={handleShipsClick}>Ships</MenuItem>
+                        <MenuItem onClick={handleCheck}>Pre Flight Checking</MenuItem>
 
                         { user && (
                             <MenuItem onClick={handleVehicleImportClick}>Import vehicles</MenuItem>
