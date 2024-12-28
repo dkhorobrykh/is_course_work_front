@@ -397,6 +397,28 @@ export const addInsuranceProgram = async (insuranceProgramData, setError, setSuc
     }
 }
 
+export const fuelUpdate = async (shipId, fuelLevel, setError, setSuccess) => {
+    try {
+        const response = await api.post(`${BASE_API_URL}/ship-status/${shipId}`, {fuelLevel: fuelLevel});
+        setSuccess({message: "Fuel level successfully updated"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error updating fuel type", error);
+    }
+}
+
+export const addMoney = async (userId, setError, setSuccess) => {
+    try {
+        const response = await api.post(`${BASE_API_URL}/user/${userId}/balance?amount=5000`);
+        setSuccess({message: "Balance successfully updated"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error updating user balance", error);
+    }
+}
+
 // -----------------------------------------------------------------------------
 
 export const getImportHistory = async (setError, setSuccess) => {

@@ -1,46 +1,20 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {AppBar, Button, Menu, MenuItem, Toolbar, Typography} from "@mui/material";
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MakeAdminRequestButton from "./old/MakeAdminRequestButton";
-import {makeAdminRequest} from "../api/api";
+import {addMoney, makeAdminRequest} from "../api/api";
 import RoleService from "./RoleService";
+import AddIcon from "@mui/icons-material/Add";
+import {AuthContext} from "../context/AuthContext";
+import {ErrorContext} from "../context/ErrorContext";
 
 const Header = ({onLoginOpen, onRegisterOpen, user, logout, setActiveComponent}) => {
     const [anchorEl, setAnchorEl] = useState(null);
+    const {setError, setSuccess} = useContext(ErrorContext);
 
     const handleMenuOpen = (event) => setAnchorEl(event.currentTarget);
     const handleMenuClose = () => setAnchorEl(null);
-
-    const handleAdminRequestsClick = () => {
-        setActiveComponent("adminRequests");
-        handleMenuClose();
-    };
-
-    const handleVehicleTableClick = () => {
-        setActiveComponent("vehicleTable");
-        handleMenuClose();
-    };
-
-    const handleVehicleMapClick = () => {
-        setActiveComponent("vehicleMap");
-        handleMenuClose();
-    };
-
-    const handleVehicleQueriesClick = () => {
-        setActiveComponent("vehicleQueries");
-        handleMenuClose();
-    };
-
-    const handleVehicleImportClick = () => {
-        setActiveComponent("vehicleImport");
-        handleMenuClose();
-    };
-
-    const handleAuditDataClick = () => {
-        setActiveComponent("auditData");
-        handleMenuClose();
-    };
 
     const handleFlightsClick = () => {
         setActiveComponent("flights");
@@ -161,6 +135,11 @@ const Header = ({onLoginOpen, onRegisterOpen, user, logout, setActiveComponent})
                             <Typography variant="body1" sx={{mr: 2}}>
                                 Hello, {user.surname} {user.firstName} {user.lastName}!
                             </Typography>
+
+                            <Typography variant="body1" sx={{mr: 2}}>
+                                Your balance is {user.balance}$
+                            </Typography>
+                            <Button color="#00ff00" onClick={() => addMoney(user.id, setError, setSuccess)}><AddIcon/></Button>
                             <Button color="inherit" onClick={logout}><LogoutIcon/></Button>
                         </>) : (<>
                             <Button color="inherit" onClick={onLoginOpen}>Login</Button>

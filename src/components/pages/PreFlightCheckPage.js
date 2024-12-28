@@ -1,30 +1,52 @@
-import React, { useState } from 'react';
-import { Button, CircularProgress, TextField, Paper, Typography, Grid, Box } from '@mui/material';
-import { performPreFlightCheck } from "../../api/api";
+import React, {useContext, useState} from 'react';
+import {Button, CircularProgress, TextField, Paper, Typography, Grid, Box, MenuItem} from '@mui/material';
+import {fuelUpdate, performPreFlightCheck} from "../../api/api";
+import {DesktopDateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
+import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
+import {ErrorContext} from "../../context/ErrorContext";
+
+const style = {
+    justifyContent: 'center',
+    display: 'flex',
+    alignItems: 'center',
+    // transform: 'translate(-50%, -50%)',
+    width: 250,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
+
+const fieldSt = {
+    my: 1.25,
+};
 
 const PreFlightCheckPage = () => {
     const [loading, setLoading] = useState(false);
     const [scheduleId, setScheduleId] = useState('');
     const [checkResult, setCheckResult] = useState('');
-    const [error, setError] = useState('');
+    const [errorCustom, setErrorCustom] = useState('');
+    const {setError, setSuccess} = useContext(ErrorContext);
+    const [fuel, setFuel] = useState(0);
+    const [shipId, setShipId] = useState(0);
 
     const handlePreFlightCheck = async () => {
         if (!scheduleId || isNaN(scheduleId)) {
-            setError('Пожалуйста, введите корректный числовой Schedule ID.');
+            setErrorCustom('Пожалуйста, введите корректный числовой Schedule ID.');
             return;
         }
 
         const scheduleIdNumeric = Number(scheduleId);
 
         setLoading(true);
-        setError('');
+        setErrorCustom('');
         setCheckResult('');
 
         try {
             const result = await performPreFlightCheck(scheduleIdNumeric);
             setCheckResult(result.data);
         } catch (err) {
-            setError('Не удалось выполнить предполетную проверку.');
+            setErrorCustom('Не удалось выполнить предполетную проверку.');
             console.error('Ошибка при выполнении предполетной проверки:', err);
         } finally {
             setLoading(false);
@@ -66,9 +88,14 @@ const PreFlightCheckPage = () => {
         }
     };
 
+    const handleFuelUpdate = async (e) => {
+        e.preventDefault();
+        await fuelUpdate(shipId, fuel, setErrorCustom, setSuccess);
+    }
+
     return (
         <div>
-            <Paper style={{ padding: '16px', marginTop: '16px' }}>
+            <Paper style={{padding: '16px', marginTop: '16px'}}>
                 <Typography variant="h5">Предполетная проверка</Typography>
 
                 <TextField
@@ -80,10 +107,10 @@ const PreFlightCheckPage = () => {
                         margin: '16px 0',
                         width: '250px',
                     }}
-                    inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+                    inputProps={{inputMode: 'numeric', pattern: '[0-9]*'}}
                 />
 
-                {error && <Typography color="error">{error}</Typography>}
+                {errorCustom && <Typography color="error">{errorCustom}</Typography>}
 
                 <Button
                     variant="contained"
@@ -94,16 +121,16 @@ const PreFlightCheckPage = () => {
                     }}
                     disabled={loading}
                 >
-                    {loading ? <CircularProgress size={24} /> : 'Запустить предполетную проверку'}
+                    {loading ? <CircularProgress size={24}/> : 'Запустить предполетную проверку'}
                 </Button>
-                
-                <Typography variant="h6" style={{ marginTop: '16px' }}>
+
+                <Typography variant="h6" style={{marginTop: '16px'}}>
                     Возможные состояния:
                 </Typography>
 
-                <Grid container spacing={2} style={{ marginTop: '16px' }}>
+                <Grid container spacing={2} style={{marginTop: '16px'}}>
                     <Grid item xs={4}>
-                        <Typography variant="subtitle1" style={{ textAlign: 'center' }}>
+                        <Typography variant="subtitle1" style={{textAlign: 'center'}}>
                             <strong>Engine Status</strong>
                         </Typography>
                         <Box
@@ -133,7 +160,7 @@ const PreFlightCheckPage = () => {
                     </Grid>
 
                     <Grid item xs={4}>
-                        <Typography variant="subtitle1" style={{ textAlign: 'center' }}>
+                        <Typography variant="subtitle1" style={{textAlign: 'center'}}>
                             <strong>Fuel Status</strong>
                         </Typography>
                         <Box
@@ -163,7 +190,7 @@ const PreFlightCheckPage = () => {
                     </Grid>
 
                     <Grid item xs={4}>
-                        <Typography variant="subtitle1" style={{ textAlign: 'center' }}>
+                        <Typography variant="subtitle1" style={{textAlign: 'center'}}>
                             <strong>Radiation Resistance</strong>
                         </Typography>
                         <Box
@@ -186,10 +213,40 @@ const PreFlightCheckPage = () => {
                 </Grid>
 
                 {checkResult && (
-                    <div style={{ marginTop: '16px' }}>
+                    <div style={{marginTop: '16px'}}>
                         <Typography variant="body1">{checkResult}</Typography>
                     </div>
                 )}
+
+                <br/>
+
+                <Box sx={style}>
+                    <form onSubmit={handleFuelUpdate}>
+                        <TextField
+                            type="number"
+                            label="Ship ID"
+                            name="shipId"
+                            value={shipId}
+                            onChange={(e) => setShipId(e.target.value)}
+                            fullWidth
+                            sx={fieldSt}
+                        />
+
+                        <TextField
+                            type="number"
+                            label="Fuel value"
+                            name="fuel"
+                            value={fuel}
+                            onChange={(e) => setFuel(e.target.value)}
+                            fullWidth
+                            sx={fieldSt}
+                        />
+
+                        <Button type="submit" variant="contained" color="primary" fullWidth sx={fieldSt}>
+                            Update fuel value
+                        </Button>
+                    </form>
+                </Box>
             </Paper>
         </div>
     );
