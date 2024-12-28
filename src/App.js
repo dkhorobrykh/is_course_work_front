@@ -12,7 +12,9 @@ import SchedulePage from "./components/pages/SchedulePage";
 import ShipPage from "./components/pages/ShipPage";
 import CargoPage from "./components/CargoPage";
 import ChatPage from "./components/pages/ChatPage";
+import AnalysisPage from "./components/pages/AnalysisPage";
 import ManageFlightsPage from "./components/pages/ManageFlightsPage";
+import GalaxyPage from "./components/pages/GalaxyPage";
 
 function App() {
     const {setError, setSuccess} = useContext(ErrorContext);
@@ -56,7 +58,11 @@ function App() {
 
                 {activeComponent === "chatPage" && <ChatPage setActiveComponent={setActiveComponent}/>}
 
+                {activeComponent === "analysisPage" && <AnalysisPage setActiveComponent={setActiveComponent}/>}
+
                 {activeComponent === "manageFlights" && <ManageFlightsPage setActiveComponent={setActiveComponent}/>}
+
+                {activeComponent === "galaxy" && <GalaxyPage setActiveComponent={setActiveComponent}/>}
             </div>
         </div>
     );
