@@ -113,6 +113,11 @@ const Header = ({onLoginOpen, onRegisterOpen, user, logout, setActiveComponent})
         handleMenuClose();
     }
 
+    const handleInsuranceProgramClick = () => {
+        setActiveComponent("insurancePrograms");
+        handleMenuClose();
+    }
+
     return (
         <>
             <AppBar position="static" style={{zIndex: 10}}>
@@ -138,13 +143,14 @@ const Header = ({onLoginOpen, onRegisterOpen, user, logout, setActiveComponent})
                         <MenuItem onClick={handleUserRoleClick}>User roles</MenuItem>
                         <MenuItem onClick={handleSchedulesClick}>Schedules</MenuItem>
                         <MenuItem onClick={handleShipsClick}>Ships</MenuItem>
+                        <MenuItem onClick={handleInsuranceProgramClick}>Insurance programs</MenuItem>
 
-                        { user && (
-                            <MenuItem onClick={handleVehicleImportClick}>Import vehicles</MenuItem>
-                        )}
-                        {user && user.admin && (
-                            <MenuItem onClick={handleAdminRequestsClick}>Admin requests table</MenuItem>
-                        )}
+                        {/*{ user && (*/}
+                        {/*    <MenuItem onClick={handleVehicleImportClick}>Import vehicles</MenuItem>*/}
+                        {/*)}*/}
+                        {/*{user && user.admin && (*/}
+                        {/*    <MenuItem onClick={handleAdminRequestsClick}>Admin requests table</MenuItem>*/}
+                        {/*)}*/}
                     </Menu>
 
                     <Typography variant="h6" sx={{flexGrow: 1}}>

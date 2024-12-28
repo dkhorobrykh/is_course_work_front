@@ -20,6 +20,7 @@ import AnalysisPage from "./components/pages/AnalysisPage";
 import UserRoleListPage from "./components/pages/UserRoleListPage";
 import PreFlightCheckPage from "./components/pages/PreFlightCheckPage";
 import BookedFlightsPage from "./components/pages/BookedFlightsPage";
+import InsuranceProgramPage from "./components/pages/InsuranceProgramPage";
 
 function App() {
     const {setError, setSuccess} = useContext(ErrorContext);
@@ -78,6 +79,8 @@ function App() {
                 {activeComponent === "checkingPage" && <PreFlightCheckPage setActiveComponent={setActiveComponent}/>}
 
                 {activeComponent === "bookedFlightsPage" && <BookedFlightsPage setActiveComponent={setActiveComponent}/>}
+
+                {activeComponent === "insurancePrograms" && <InsuranceProgramPage setActiveComponent={setActiveComponent}/>}
             </div>
         </div>
     );

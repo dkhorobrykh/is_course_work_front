@@ -375,6 +375,28 @@ export const addInsurance = async (insuranceData, setError, setSuccess) => {
     }
 }
 
+export const getAllInsurancePrograms = async (setError, setSuccess) => {
+    try {
+        const response = await api.get(`${BASE_API_URL}/insurance/programs`);
+        setSuccess({message: "Insurance programs successfully received"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error fetching insurance programs ", error);
+    }
+}
+
+export const addInsuranceProgram = async (insuranceProgramData, setError, setSuccess) => {
+    try {
+        const response = await api.post(`${BASE_API_URL}/insurance/programs`, insuranceProgramData);
+        setSuccess({message: "Successfully added insurance program"});
+        return response.data;
+    } catch (error) {
+        setError(error.response.data);
+        console.error("Error adding new insurance program ", error);
+    }
+}
+
 // -----------------------------------------------------------------------------
 
 export const getImportHistory = async (setError, setSuccess) => {
