@@ -15,15 +15,27 @@ const ChatPage = () => {
 
     useEffect(() => {
         fetchChats();
+
+        const interval = setInterval(() => {
+            fetchChats();
+        }, 3000);
+
+        return () => clearInterval(interval);
     }, []);
 
     const fetchChats = async () => {
         try {
             const chatsData = await getAllChats(setError, setSuccess);
-            setChats(chatsData);
-            if (chatsData.length > 0) {
-                setSelectedChatId(chatsData[0].id);
-                setSelectedChatMessages(chatsData[0].messages || []);
+
+            if (JSON.stringify(chats) !== JSON.stringify(chatsData)) {
+                setChats(chatsData);
+                if (!selectedChatId && chatsData.length > 0) {
+                    setSelectedChatId(chatsData[0].id);
+                    setSelectedChatMessages(chatsData[0].messages || []);
+                } else {
+                    const updatedChat = chatsData.find(chat => chat.id === selectedChatId);
+                    setSelectedChatMessages(updatedChat?.messages || []);
+                }
             }
         } catch (error) {
             console.error('Error fetching chats:', error);
